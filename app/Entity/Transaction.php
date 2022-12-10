@@ -22,7 +22,7 @@ class Transaction
     private string $descriptions;
     #[Column]
     private  \DateTime $date;
-    #[Column(name: 'amount', Type: Types::DECIMAL,precision: 13,scale: 3)]
+    #[Column(name: 'amount', type: Types::DECIMAL,precision: 13,scale: 3)]
     private float $amount;
     #[Column]
     private string $password;
@@ -44,4 +44,121 @@ class Transaction
     {
         $this->receipts = new ArrayCollection();
     }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getDescriptions(): string
+    {
+        return $this->descriptions;
+    }
+
+    public function setDescriptions(string $descriptions): Transaction
+    {
+        $this->descriptions = $descriptions;
+        return $this;
+    }
+
+
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    }
+
+
+    public function setDate(\DateTime $date): Transaction
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+
+    public function getAmount(): float
+    {
+        return $this->amount;
+    }
+
+
+    public function setAmount(float $amount): Transaction
+    {
+        $this->amount = $amount;
+        return $this;
+    }
+
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+
+    public function setPassword(string $password): Transaction
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+
+    public function getCreateAt(): \DateTime
+    {
+        return $this->createAt;
+    }
+
+
+    public function setCreateAt(\DateTime $createAt): Transaction
+    {
+        $this->createAt = $createAt;
+        return $this;
+    }
+
+
+    public function getUpdateAt(): \DateTime
+    {
+        return $this->updateAt;
+    }
+
+
+    public function setUpdateAt(\DateTime $updateAt): Transaction
+    {
+        $this->updateAt = $updateAt;
+        return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Transaction
+    {
+        $user->addTransaction($this);
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getCategory(): Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(Category $category): Transaction
+    {
+        $category->addTransaction($this);
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getReceipts(): Collection
+    {
+        return $this->receipts;
+    }
+
+    public function addReceipt(Receipt $receipt): Transaction
+    {
+        $this->receipts->add($receipt);
+        return $this;
+    }
+
 }

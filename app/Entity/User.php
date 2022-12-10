@@ -41,4 +41,82 @@ class User
 
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): User
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): User
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function getCreateAt(): \DateTime
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTime $createAt): User
+    {
+        $this->createAt = $createAt;
+        return $this;
+    }
+
+    public function getUpdateAt(): \DateTime
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(\DateTime $updateAt): User
+    {
+        $this->updateAt = $updateAt;
+        return $this;
+    }
+
+    public function getCategories(): ArrayCollection|Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategories(Category $category): User
+    {
+        $this->categories->add($category);
+        return $this;
+    }
+
+    public function getTransactions(): ArrayCollection|Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransactions(Transaction $transaction): User
+    {
+        $this->transactions->add($transaction);
+        return $this;
+    }
+
+
 }

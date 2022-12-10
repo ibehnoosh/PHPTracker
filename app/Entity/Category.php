@@ -31,4 +31,67 @@ class Category
     #[OneToMany(mappedBy: 'categories', targetEntity: Transaction::class)]
     private Collection $transactions;
 
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): Category
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    public function getCreateAt(): \DateTime
+    {
+        return $this->createAt;
+    }
+
+
+    public function setCreateAt(\DateTime $createAt): Category
+    {
+        $this->createAt = $createAt;
+        return $this;
+    }
+
+    public function getUpdateAt(): \DateTime
+    {
+        return $this->updateAt;
+    }
+
+    public function setUpdateAt(\DateTime $updateAt): Category
+    {
+        $this->updateAt = $updateAt;
+        return $this;
+    }
+
+    public function getUser(): User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): Category
+    {
+        $user->addCategory($this);
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getTransactions(): Collection
+    {
+        return $this->transactions;
+    }
+
+    public function addTransactions(Transaction $transaction): Category
+    {
+        $this->transactions->add($transaction);
+        return $this;
+    }
+
 }
