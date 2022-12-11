@@ -16,6 +16,7 @@ services:
       - "host.docker.internal:host-gateway"
     volumes:
       - ../:/var/www
+      - ./local.ini:/usr/local/etc/php/conf.d/local.ini
   nginx:
     image: nginx:1.19-alpine
     container_name: expennies-nginx
