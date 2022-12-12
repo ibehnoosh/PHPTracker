@@ -1,6 +1,9 @@
 <?php
-declare(strict_types=1);
+
+declare(strict_types = 1);
+
 namespace App\Entity;
+
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -11,30 +14,32 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\Table;
-use PhpParser\ErrorHandler\Collecting;
 
 #[Entity, Table('transactions')]
 class Transaction
 {
-    #[Id, Column(options:['unsigned'=> true] ), GeneratedValue]
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
     private int $id;
-    #[Column]
-    private string $descriptions;
-    #[Column]
-    private  \DateTime $date;
-    #[Column(name: 'amount', type: Types::DECIMAL,precision: 13,scale: 3)]
-    private float $amount;
-    #[Column]
-    private string $password;
-    #[Column(name: 'created_at')]
-    private  \DateTime $createAt;
-    #[Column(name: 'updated_at')]
-    private  \DateTime $updateAt;
 
-    #[ManyToOne(inversedBy:'transactions')]
+    #[Column]
+    private string $description;
+
+    #[Column]
+    private \DateTime $date;
+
+    #[Column(type: Types::DECIMAL, precision: 13, scale: 3)]
+    private float $amount;
+
+    #[Column(name: 'created_at')]
+    private \DateTime $createdAt;
+
+    #[Column(name: 'updated_at')]
+    private \DateTime $updatedAt;
+
+    #[ManyToOne(inversedBy: 'transactions')]
     private User $user;
 
-    #[ManyToOne(inversedBy:'transactions')]
+    #[ManyToOne(inversedBy: 'transactions')]
     private Category $category;
 
     #[OneToMany(mappedBy: 'transaction', targetEntity: Receipt::class)]
@@ -50,79 +55,63 @@ class Transaction
         return $this->id;
     }
 
-    public function getDescriptions(): string
+    public function getDescription(): string
     {
-        return $this->descriptions;
+        return $this->description;
     }
 
-    public function setDescriptions(string $descriptions): Transaction
+    public function setDescription(string $description): Transaction
     {
-        $this->descriptions = $descriptions;
+        $this->description = $description;
+
         return $this;
     }
-
 
     public function getDate(): \DateTime
     {
         return $this->date;
     }
 
-
     public function setDate(\DateTime $date): Transaction
     {
         $this->date = $date;
+
         return $this;
     }
-
 
     public function getAmount(): float
     {
         return $this->amount;
     }
 
-
     public function setAmount(float $amount): Transaction
     {
         $this->amount = $amount;
+
         return $this;
     }
 
-
-    public function getPassword(): string
+    public function getCreatedAt(): \DateTime
     {
-        return $this->password;
+        return $this->createdAt;
     }
 
-
-    public function setPassword(string $password): Transaction
+    public function setCreatedAt(\DateTime $createdAt): Transaction
     {
-        $this->password = $password;
+        $this->createdAt = $createdAt;
+
         return $this;
     }
 
-
-    public function getCreateAt(): \DateTime
+    public function getUpdatedAt(): \DateTime
     {
-        return $this->createAt;
+        return $this->updatedAt;
     }
 
-
-    public function setCreateAt(\DateTime $createAt): Transaction
+    public function setUpdatedAt(\DateTime $updatedAt): Transaction
     {
-        $this->createAt = $createAt;
-        return $this;
-    }
+        $this->updatedAt = $updatedAt;
 
-
-    public function getUpdateAt(): \DateTime
-    {
-        return $this->updateAt;
-    }
-
-
-    public function setUpdateAt(\DateTime $updateAt): Transaction
-    {
-        $this->updateAt = $updateAt;
         return $this;
     }
 
@@ -134,7 +123,9 @@ class Transaction
     public function setUser(User $user): Transaction
     {
         $user->addTransaction($this);
+
         $this->user = $user;
+
         return $this;
     }
 
@@ -146,11 +137,13 @@ class Transaction
     public function setCategory(Category $category): Transaction
     {
         $category->addTransaction($this);
+
         $this->category = $category;
+
         return $this;
     }
 
-    public function getReceipts(): Collection
+    public function getReceipts(): ArrayCollection|Collection
     {
         return $this->receipts;
     }
@@ -158,7 +151,7 @@ class Transaction
     public function addReceipt(Receipt $receipt): Transaction
     {
         $this->receipts->add($receipt);
+
         return $this;
     }
-
 }

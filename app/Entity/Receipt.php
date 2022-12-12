@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping\Column;
@@ -12,16 +14,16 @@ use Doctrine\ORM\Mapping\Table;
 #[Entity, Table('receipts')]
 class Receipt
 {
-    #[Id, Column(options:['unsigned'=> true] ), GeneratedValue]
+    #[Id, Column(options: ['unsigned' => true]), GeneratedValue]
     private int $id;
 
-    #[Column(name:'file_name')]
-    private string $fileName;
+    #[Column]
+    private string $file_name;
 
     #[Column(name: 'created_at')]
-    private  \DateTime $createAt;
+    private \DateTime $createdAt;
 
-    #[ManyToOne(inversedBy:'receipts')]
+    #[ManyToOne(inversedBy: 'receipts')]
     private Transaction $transaction;
 
     public function getId(): int
@@ -31,23 +33,25 @@ class Receipt
 
     public function getFileName(): string
     {
-        return $this->fileName;
+        return $this->file_name;
     }
 
-    public function setFileName(string $fileName): Receipt
+    public function setFileName(string $file_name): Receipt
     {
-        $this->fileName = $fileName;
+        $this->file_name = $file_name;
+
         return $this;
     }
 
-    public function getCreateAt(): \DateTime
+    public function getCreatedAt(): \DateTime
     {
-        return $this->createAt;
+        return $this->createdAt;
     }
 
-    public function setCreateAt(\DateTime $createAt): Receipt
+    public function setCreatedAt(\DateTime $createdAt): Receipt
     {
-        $this->createAt = $createAt;
+        $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -59,8 +63,9 @@ class Receipt
     public function setTransaction(Transaction $transaction): Receipt
     {
         $transaction->addReceipt($this);
+
         $this->transaction = $transaction;
+
         return $this;
     }
-
 }
